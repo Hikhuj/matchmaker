@@ -26,6 +26,10 @@ init()
 
 def message_id_matcher_welcome():
 
+	'''
+		Message to user
+	'''
+
 	print("")
 	print(Fore.YELLOW + "* --------------------------------------------------- *")
 	print(Fore.YELLOW + "|                                                     |")
@@ -37,6 +41,10 @@ def message_id_matcher_welcome():
 
 
 def message_id_matcher_bye():
+
+	'''
+		Message to user
+	'''
 
 	print("")
 	print(Fore.GREEN + "* --------------------------------------------------- *")
@@ -50,6 +58,10 @@ def message_id_matcher_bye():
 
 def verify_if_file_in_path_exists(file_path):
 
+	'''
+		Function read where the file is on the root folder only, not deeper.
+	'''
+
 	result = os.path.isfile(file_path)
 
 	return result
@@ -57,18 +69,28 @@ def verify_if_file_in_path_exists(file_path):
 
 def get_current_relative_path_base_file():
 
+	'''
+		The function ask for the name of the file that will be used as base file, 
+		the function also will check if the file exist or well, will check 
+		if the file is a .csv extension. If everything is ok, will return 
+		a full path of the file that it is going to be used.
+	'''
+
 	# Declaration
 	result = ""
 	absFilePath = ""
 
-	print("")
+	print("")\
+	# Request the file name to work
 	file_name = input("1) Add the file name you will use as base (use the format ==> fileName.extension): ")
 	is_a_csv = validator_check_file_extension(file_name)
 
+	# Verification
 	if is_a_csv == True:
 		absFilePath = os.path.abspath(file_name)
 		csv_exists = verify_if_file_in_path_exists(absFilePath)
 
+		# If the file exist
 		if csv_exists == True:
 			result = absFilePath
 		else:
@@ -78,6 +100,7 @@ def get_current_relative_path_base_file():
 			print(Style.RESET_ALL)
 			get_current_relative_path_base_file()
 
+	# If the file is not a .csv extension
 	else:
 		print(Fore.RED + "* --------------------------------------------------- *")
 		print(Fore.RED + "|    The file you are trying to add is not a '.csv'   |")
@@ -91,17 +114,27 @@ def get_current_relative_path_base_file():
 
 def get_current_relative_path_joined_file():
 
+	'''
+		The function ask for the name of the file that will be used as base file, 
+		the function also will check if the file exist or well, will check 
+		if the file is a .csv extension. If everything is ok, will return 
+		a full path of the file that it is going to be used.
+	'''
+
 	# Declaration
 	absFilePath = ""
 
 	print("")
+	# Request the file name to work
 	file_name = input("2) Add the file name you will try to match (use the format ==> fileName.extension): ")
 	is_a_csv = validator_check_file_extension(file_name)
 
+	# Verification
 	if is_a_csv == True:
 		absFilePath = os.path.abspath(file_name)
 		csv_exists = verify_if_file_in_path_exists(absFilePath)
 
+		# If the file exist
 		if csv_exists == True:
 			result = absFilePath
 		else:
@@ -111,6 +144,7 @@ def get_current_relative_path_joined_file():
 			print(Style.RESET_ALL)
 			get_current_relative_path_joined_file()
 
+	# If the file is not a .csv extension
 	else:
 		print(Fore.RED + "* --------------------------------------------------- *")
 		print(Fore.RED + "|    The file you are trying to add is not a '.csv'   |")
