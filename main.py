@@ -136,11 +136,11 @@ def csv_file_reader(file_to_read_A, file_to_read_B):
 			full_row = []
 			print("=======> Processing line: " + str(position))
 			full_row = search_id_in_file(row[0], file_to_read_B, position)
-			# row.extend(full_row)
+			row.extend(full_row)
 			# row.append(full_row)
 			# row.insert(7, full_row)
-
 			write_on_file(row)
+
 			# Increase row position
 			position += 1
 
