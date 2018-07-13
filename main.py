@@ -15,6 +15,7 @@ Script must check if file exists
 '''
 
 # Importe de modulos
+import pdb
 import csv
 import os
 #import glob
@@ -127,8 +128,8 @@ def csv_file_reader(file_to_read_A, file_to_read_B):
 
 	print("")
 
-	with open(file_to_read_A, 'r', encoding='utf-8', newline='') as file_A:
-		file_A = csv.reader(file_A, delimiter=',', quotechar=',')
+	with open(file_to_read_A, 'r', encoding='utf-8') as file_A:
+		file_A = csv.reader(file_A, delimiter=',')
 
 		position = 1
 		for row in file_A:
@@ -136,6 +137,7 @@ def csv_file_reader(file_to_read_A, file_to_read_B):
 			full_row = []
 			print("=======> Processing line: " + str(position))
 			full_row = search_id_in_file(row[0], file_to_read_B, position)
+			pdb.set_trace()
 			row.extend(full_row)
 			# row.append(full_row)
 			# row.insert(7, full_row)
