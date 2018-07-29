@@ -1,9 +1,6 @@
-﻿student_sis_local_id,student_address_street1,student_address_street2,student_address_city_name,student_address_state
-11646,872 SW 105th Lane,,Mindenmines,MO
-11462,325 S. 43 Hwy,,Liberal,MO
-11401,95 SW 90th Lane,,Liberal,MO
-11392,868 W Hwy 126,,Liberal,MO
-12078,723 B NW 60th Rd,,Lamar,MO
-12077,211 E. 8th ,,Mindenmines,MO
-12399,95 SW 90th Lane,,Lamar,MO
-66666,868 W Hwy 126,,Lamar,MO
+﻿student_sis_local_id,student_address_street1,student_address_state,errors
+11646,872 SW 105th Lane,MO,Error_1
+11401,95 SW 90th Lane,MO,Error_2
+11392,868 W Hwy 126,MO,Error_3
+12077,211 E. 8th ,MO,Error_4
+66666,868 W Hwy 126,MO,Error_5

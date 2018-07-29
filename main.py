@@ -23,6 +23,12 @@ import os
 from colorama import *
 init()
 
+
+# Variable list
+variable_list_messages = ['Please provide the file that works as base document...',
+							'Please provide the file that will be compare...',
+							'Copy and paste the file name to be used (use the format ==> fileName.extension): ']
+
 # http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html
 
 def message_id_matcher_welcome():
@@ -53,20 +59,11 @@ def verify_if_file_in_path_exists(file_path):
 
 	# Function read where the file is on the root project only.
 	result = os.path.isfile(file_path)
-	print(result)
 	return result
 
 
-def request_file_A_path():
+def request_file_name():
 
-	print("Please provide the file that works as base document...")
-	result = get_relative_path()
-	return result
-
-
-def request_file_B_path():
-
-	print("Please provide the file that will be compare...")
 	result = get_relative_path()
 	return result
 
@@ -81,7 +78,7 @@ def get_relative_path():
 	print("")
 
 	# Request the name of the file to work
-	file_name = input("Copy and paste the file name to be used (use the format ==> fileName.extension): ")
+	file_name = input(variable_list_messages[2])
 	is_a_csv = validator_check_file_extension(file_name)
 
 	# Verification
@@ -124,36 +121,41 @@ def validator_check_file_extension(csv_file_name):
 	return result
 
 
-def csv_file_reader(file_to_read_A, file_to_read_B):
+def csv_file_reader(source_file_path, error_file_path):
 
 	print("")
 
-	with open(file_to_read_A, 'r', encoding='utf-8') as file_A:
-		file_A = csv.reader(file_A, delimiter=',')
+	with open(source_file_path, 'r', encoding='utf-8') as file:
+		file_A = csv.reader(file, delimiter=',')
 
 		position = 1
 		for row in file_A:
 			# Restart always with clean array
 			full_row = []
-			print("=======> Processing line: " + str(position))
-			full_row = search_id_in_file(row[0], file_to_read_B, position)
-			pdb.set_trace()
-			row.extend(full_row)
-			# row.append(full_row)
-			# row.insert(7, full_row)
-			write_on_file(row)
+			print("-------> Processing line: " + str(position))
+			# Search for Id on errors.csv file or file of choice, if find something, will return list of content
+			full_row = search_id_in_file(row[0], error_file_path, position)
+			# pdb.set_trace()
+			# It will take all in full_row and extend the row currently working on
+
+			with open(source_file_path, 'w', encoding='utf-8') as file_to_write:
+				file_C = csv.writer(file_to_write, delimiter=',')
+				file_C[position].extend(full_row)
+
+			# row.extend(full_row)
+			# write_on_file(row)
 
 			# Increase row position
 			position += 1
 
 
-def search_id_in_file(line_id, file_to_read_B, position):
+def search_id_in_file(line_id, error_file_path, position):
 
 	result = []
 
 	# Read the CSV where the code will pull data if it match in file_B
-	with open(file_to_read_B, 'r', encoding='utf-8', newline='') as file_B:
-		file_B = csv.reader(file_B, delimiter=',', quotechar=',')
+	with open(error_file_path, 'r', encoding='utf-8') as file:
+		file_B = csv.reader(file, delimiter=',')
 
 		# Read each row of the CSV
 		for row in file_B:
@@ -169,20 +171,22 @@ def search_id_in_file(line_id, file_to_read_B, position):
 def write_on_file(row):
 
 	with open ("clean.csv",'a') as clean_file:                            
-		clean_file = csv.writer(clean_file, delimiter=',', quotechar=',')
+		clean_file = csv.writer(clean_file, delimiter=',')
 		clean_file.writerow(row)
 
 
 def interactive_menu():
 
 	# Get base file to compare
-	file_A_path = request_file_A_path()
+	print(variable_list_messages[0])
+	source_file_path = request_file_name()
 
 	# Get file to compare agains base file
-	file_B_path = request_file_B_path()
+	print(variable_list_messages[1])
+	error_file_path = request_file_name()
 
 	# Process the two CSV to be compare
-	csv_file_reader(file_A_path, file_B_path);
+	csv_file_reader(source_file_path, error_file_path);
 
 ### Main
 def main():
