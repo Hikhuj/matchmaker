@@ -16,6 +16,7 @@ Script must check if file exists
 
 # Importe de modulos
 import pdb
+# pdb.set_trace()
 import csv
 import os
 #import glob
@@ -135,7 +136,6 @@ def csv_file_reader(source_file_path, error_file_path):
 			print("-------> Processing line: " + str(position))
 			# Search for Id on errors.csv file or file of choice, if find something, will return list of content
 			full_row = search_id_in_file(row[0], error_file_path, position)
-			# pdb.set_trace()
 			# It will take all in full_row and extend the row currently working on
 
 			with open(source_file_path, 'w', encoding='utf-8') as file_to_write:
