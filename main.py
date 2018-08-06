@@ -124,28 +124,25 @@ def validator_check_file_extension(csv_file_name):
 
 def csv_file_reader(source_file_path, error_file_path):
 
-	print("")
-
-	with open(source_file_path, 'r', encoding='utf-8') as file:
-		file_A = csv.reader(file, delimiter=',')
+	with open(source_file_path, 'r', encoding='utf-8') as csv_file:
+		csv_reader = csv.reader(csv_file)
 
 		position = 1
-		for row in file_A:
-			# Restart always with clean array
-			full_row = []
+
+		for row in csv_reader:
+			# Set default list will be attached to row null
+			additional_info = []
 			print("-------> Processing line: " + str(position))
+
 			# Search for Id on errors.csv file or file of choice, if find something, will return list of content
-			full_row = search_id_in_file(row[0], error_file_path, position)
-			# It will take all in full_row and extend the row currently working on
+			additional_info = search_id_in_file(row[0], error_file_path, position)
+			
+			# Add to each row any data that appears on previous result
+			row.extend(additional_info)
 
-			with open(source_file_path, 'w', encoding='utf-8') as file_to_write:
-				file_C = csv.writer(file_to_write, delimiter=',')
-				file_C[position].extend(full_row)
+			write_on_file(row)
 
-			# row.extend(full_row)
-			# write_on_file(row)
-
-			# Increase row position
+			# Increase row position to read
 			position += 1
 
 
@@ -170,9 +167,9 @@ def search_id_in_file(line_id, error_file_path, position):
 
 def write_on_file(row):
 
-	with open ("clean.csv",'a') as clean_file:                            
-		clean_file = csv.writer(clean_file, delimiter=',')
-		clean_file.writerow(row)
+	with open ("clean.csv", 'a', encoding='utf-8') as file:
+		file = csv.writer(file, delimiter=',')
+		file.writerow(row)
 
 
 def interactive_menu():
