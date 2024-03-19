@@ -33,7 +33,6 @@ variable_list_messages = ['Please provide the file that works as base document..
 # http://sebastianraschka.com/Articles/2014_python_2_3_key_diff.html
 
 def message_id_matcher_welcome():
-
 	print("")
 	print(Fore.YELLOW + "* --------------------------------------------------- *")
 	print(Fore.YELLOW + "|                                                     |")
@@ -43,9 +42,7 @@ def message_id_matcher_welcome():
 	print("")
 	print(Style.RESET_ALL)
 
-
 def message_id_matcher_bye():
-
 	print("")
 	print(Fore.GREEN + "* --------------------------------------------------- *")
 	print(Fore.GREEN + "|                                                     |")
@@ -55,23 +52,17 @@ def message_id_matcher_bye():
 	print("")
 	print(Style.RESET_ALL)
 
-
 def verify_if_file_in_path_exists(file_path):
-
 	# Function read where the file is on the root project only.
 	result = os.path.isfile(file_path)
 	return result
 
-
 def request_file_name():
-
 	result = get_relative_path()
 	return result
 
-
 # Request compression of relative paths
 def get_relative_path():
-
 	# Variables
 	result = ""
 	absFilePath = ""
@@ -111,9 +102,7 @@ def get_relative_path():
 
 	return result
 
-
 def validator_check_file_extension(csv_file_name):
-
 	result = False
 
 	if csv_file_name.lower().endswith('.csv'):
@@ -121,9 +110,7 @@ def validator_check_file_extension(csv_file_name):
 
 	return result
 
-
 def csv_file_reader(source_file_path, error_file_path):
-
 	with open(source_file_path, 'r', encoding='utf-8') as csv_file:
 		csv_reader = csv.reader(csv_file)
 
@@ -145,9 +132,7 @@ def csv_file_reader(source_file_path, error_file_path):
 			# Increase row position to read
 			position += 1
 
-
 def search_id_in_file(line_id, error_file_path, position):
-
 	result = []
 
 	# Read the CSV where the code will pull data if it match in file_B
@@ -164,13 +149,10 @@ def search_id_in_file(line_id, error_file_path, position):
 
 	return result
 
-
 def write_on_file(row):
-
 	with open ("clean.csv", 'a', encoding='utf-8') as file:
 		file = csv.writer(file, delimiter=',')
 		file.writerow(row)
-
 
 def interactive_menu():
 
@@ -187,7 +169,6 @@ def interactive_menu():
 
 ### Main
 def main():
-
 	# Welcome message
 	message_id_matcher_welcome()
 
@@ -195,7 +176,7 @@ def main():
 
 	# Good bye message
 	message_id_matcher_bye()
-
+	
 	# Close Colorama use
 	deinit()
 

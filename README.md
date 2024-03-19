@@ -1,6 +1,9 @@
 # matchmaker
 Matchmaker is a document that allows you to create matches of documents by their first column.
 
+# Version
+Python 3.X is required to execute e.g.: python3 main.py
+
 # Concept
 Take a base or main file, then it takes a second file which will try to match all their ids into the base, same concept as a LEFT JOIN in SQL. Take a full table on right and join anything you can find from left table.
 
